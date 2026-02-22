@@ -4,9 +4,13 @@ on:
   pull_request:
     branches:
       - production
+  push:
+    branches:
+      - production
 
 jobs:
   test:
+    name: API Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +37,7 @@ jobs:
       - name: Start API
         run: |
           npm run start &
-          sleep 5
+          npx wait-on -t 30000 http://127.0.0.1:3000/health
 
       - name: Run Playwright tests
         run: npm run test:e2e
