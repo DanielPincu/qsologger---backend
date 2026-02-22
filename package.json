@@ -2,10 +2,18 @@
   "name": "qsologger-backend",
   "version": "0.1.0",
   "description": "QSO Logger backend API (Express + TypeScript)",
-  "keywords": ["Daniel", "Pincu"],
+  "keywords": [
+    "Daniel",
+    "Pincu"
+  ],
   "homepage": "",
-  "bugs": { "url": "https://github.com/DanielPincu/QsoLogger---Backend/issues" },
-  "repository": { "type": "git", "url": "git+https://github.com/DanielPincu/QsoLogger---Backend.git" },
+  "bugs": {
+    "url": "https://github.com/DanielPincu/QsoLogger---Backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielPincu/QsoLogger---Backend.git"
+  },
   "author": "Daniel Pincu",
   "license": "ISC",
   "type": "commonjs",
@@ -13,14 +21,20 @@
   "scripts": {
     "dev": "nodemon",
     "build": "rm -rf ./dist && tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "test:e2e": "playwright test",
+    "test:api": "concurrently \"npm run dev\" \"wait-on http://localhost:3000/ok && npm run test:e2e\""
   },
   "nodemonConfig": {
     "verbose": false,
-    "watch": ["src/"],
+    "watch": [
+      "src/"
+    ],
     "ext": "js,ts",
     "exec": "npx ts-node src/index.ts",
-    "ignore": ["node_modules"]
+    "ignore": [
+      "node_modules"
+    ]
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -36,6 +50,7 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
@@ -44,8 +59,10 @@
     "@types/node": "^25.0.9",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "concurrently": "^9.2.1",
     "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wait-on": "^9.0.4"
   }
 }
