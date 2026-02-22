@@ -1,10 +1,15 @@
 import { test, expect } from '@playwright/test'
 
 test('register + login works', async ({ request }) => {
+  const unique = Date.now()
+
+  const email = `dl1test+${unique}@mail.com`
+  const callsign = `DL1TEST${unique}`
+
   const register = await request.post('/user/register', {
     data: {
-      callsign: 'DL1TEST',
-      email: 'dl1test@mail.com',
+      callsign,
+      email,
       password: 'password123'
     }
   })
@@ -13,10 +18,12 @@ test('register + login works', async ({ request }) => {
 
   const login = await request.post('/user/login', {
     data: {
-      email: 'dl1test@mail.com',
+      email,
       password: 'password123'
     }
   })
+
+  expect(login.ok()).toBeTruthy()
 
   const body = await login.json()
   expect(body.token).toBeTruthy()
