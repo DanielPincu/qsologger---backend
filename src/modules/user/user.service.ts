@@ -5,7 +5,7 @@ export const getUserByEmail = async (email: string) => {
 }
 
 export const createUser = async (data: {
-  username: string
+  callsign: string
   email: string
   password: string
 }) => {

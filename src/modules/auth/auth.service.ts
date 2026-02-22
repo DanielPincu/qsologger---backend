@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { getUserByEmail, createUser } from '../user/user.service'
 import { env } from '../../config/env'
 
-export const registerUser = async (username: string, email: string, password: string) => {
+export const registerUser = async (callsign: string, email: string, password: string) => {
   const existing = await getUserByEmail(email)
   if (existing) {
     throw new Error('Email already in use')
@@ -12,7 +12,7 @@ export const registerUser = async (username: string, email: string, password: st
   const hashedPassword = await bcrypt.hash(password, 10)
 
   const user = await createUser({
-    username,
+    callsign,
     email,
     password: hashedPassword
   })

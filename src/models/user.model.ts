@@ -1,12 +1,15 @@
 import { Schema, model } from 'mongoose'
 
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
-    username: { type: String, required: true },
+    callsign: { type: String, required: true, unique: true, sparse: true }, 
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+
+    qth: { type: String },
+    locator: { type: String }
   },
   { timestamps: true }
 )
 
-export const UserModel = model('User', UserSchema)
+export const UserModel = model('User', userSchema)
