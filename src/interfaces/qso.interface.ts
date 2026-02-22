@@ -7,4 +7,10 @@ export interface IQSO {
   rstReceived: string
   qsoDate: Date
   operatorId: string
+  
+  qth?: string
+  locator?: string
 }
+
+export type CreateQSO = Omit<IQSO, '_id' | 'operatorId'>
+export type UpdateQSO = Partial<CreateQSO>
