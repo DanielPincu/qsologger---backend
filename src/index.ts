@@ -1,13 +1,13 @@
-import express from 'express'
+import { createServer } from './server'
+import { connectMongo } from './driver/mongo.driver'
+import { env } from './config/env'
 
-const app = express()
+const start = async () => {
+  await connectMongo()
+  const app = createServer()
+  app.listen(env.PORT, () => {
+    console.log(`API running on http://localhost:${env.PORT}`)
+  })
+}
 
-app.get('/health', (_req, res) => {
-  res.send('ok')
-})
-
-const PORT = 3000
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
-})
+start()
