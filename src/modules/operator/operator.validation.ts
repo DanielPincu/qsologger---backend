@@ -9,4 +9,10 @@ export const updateOperator = Joi.object({
     .pattern(/^[A-R]{2}\d{2}[A-X]{0,2}$/)
     .optional(),
   email: Joi.string().email().optional(),
+  password: Joi.string().min(6).optional(),
+  currentPassword: Joi.string().when('password', {
+    is: Joi.exist(),
+    then: Joi.required(),
+    otherwise: Joi.optional()
+  }),
 })

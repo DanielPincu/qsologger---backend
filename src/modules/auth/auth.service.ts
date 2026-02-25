@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { env } from '../../config/env'
 import { OperatorModel } from '../../models/operator.model'
+import { hashPassword, comparePassword } from '../../utils/passwordHasher.util'
 
 const getOperatorByEmail = async (email: string) => {
   return OperatorModel.findOne({ email })
@@ -21,7 +21,7 @@ export const registerOperator = async (callsign: string, email: string, password
     throw new Error('Email already in use')
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10)
+  const hashedPassword = await hashPassword(password)
 
   const operator = await createOperator({
     callsign,
@@ -40,7 +40,7 @@ export const loginOperator = async (email: string, password: string) => {
     throw new Error('Invalid credentials')
   }
 
-  const isMatch = await bcrypt.compare(password, operator.password)
+  const isMatch = await comparePassword(password, operator.password)
   if (!isMatch) {
     throw new Error('Invalid credentials')
   }
