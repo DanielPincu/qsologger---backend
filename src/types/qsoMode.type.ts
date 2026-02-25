@@ -1,1 +1,1 @@
-export type Mode = 'SSB' | 'CW' | 'FT8' | 'RTTY' | 'AM'
+export type Mode = 'SSB' | 'CW' | 'RTTY' | 'AM' | 'FM'

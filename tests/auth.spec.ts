@@ -6,7 +6,7 @@ test('register + login works', async ({ request }) => {
   const email = `dl1test+${unique}@mail.com`
   const callsign = `DL1TEST${unique}`
 
-  const register = await request.post('/user/register', {
+  const register = await request.post('/operator/register', {
     data: {
       callsign,
       email,
@@ -16,7 +16,7 @@ test('register + login works', async ({ request }) => {
 
   expect(register.ok()).toBeTruthy()
 
-  const login = await request.post('/user/login', {
+  const login = await request.post('/operator/login', {
     data: {
       email,
       password: 'password123'

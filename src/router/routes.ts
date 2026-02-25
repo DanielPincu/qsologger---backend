@@ -11,4 +11,4 @@ routes.get('/ok', (req, res) => {
 })
 
 //auth routes
-routes.use('/user', authRoutes)
+routes.use('/operator', authRoutes)

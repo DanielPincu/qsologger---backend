@@ -3,7 +3,7 @@ import { Mode } from '../types/qsoMode.type'
 
 export interface IQSO {
   _id: string
-  callsign: string
+  remoteCallsign: string
   band: Band
   mode: Mode
   rstSent: string
