@@ -1,8 +1,11 @@
+import { Band } from '../types/qsoBand.type'
+import { Mode } from '../types/qsoMode.type'
+
 export interface IQSO {
   _id: string
   callsign: string
-  band: string
-  mode: string
+  band: Band
+  mode: Mode
   rstSent: string
   rstReceived: string
   qsoDate: Date

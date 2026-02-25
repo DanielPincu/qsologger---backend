@@ -1,0 +1,1 @@
+export type Mode = 'SSB' | 'CW' | 'FT8' | 'RTTY' | 'AM'
