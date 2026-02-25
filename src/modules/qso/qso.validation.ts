@@ -1,9 +1,13 @@
 import Joi from 'joi'
 
 export const createQSO = Joi.object({
-  callsign: Joi.string().trim().uppercase().required(),
-  band: Joi.string().trim().required(),
-  mode: Joi.string().trim().required(),
+  remoteCallsign: Joi.string().trim().uppercase().required(),
+  band: Joi.string()
+    .valid('160m', '80m', '40m', '20m', '15m', '10m', '6m', '2m', '70cm')
+    .required(),
+  mode: Joi.string()
+    .valid('SSB', 'CW', 'FT8', 'RTTY', 'AM')
+    .required(),
 
   rstSent: Joi.string().trim().optional(),
   rstReceived: Joi.string().trim().optional(),
@@ -20,9 +24,13 @@ export const createQSO = Joi.object({
 })
 
 export const updateQSO = Joi.object({
-  callsign: Joi.string().trim().uppercase().optional(),
-  band: Joi.string().trim().optional(),
-  mode: Joi.string().trim().optional(),
+  remoteCallsign: Joi.string().trim().uppercase().optional(),
+  band: Joi.string()
+    .valid('160m', '80m', '40m', '20m', '15m', '10m', '6m', '2m', '70cm')
+    .optional(),
+  mode: Joi.string()
+    .valid('SSB', 'CW', 'RTTY', 'AM', 'FM')
+    .optional(),
 
   rstSent: Joi.string().trim().optional(),
   rstReceived: Joi.string().trim().optional(),

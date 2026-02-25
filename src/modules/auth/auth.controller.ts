@@ -1,16 +1,16 @@
 import { Request, Response } from 'express'
-import { registerUser, loginUser } from './auth.service'
+import { registerOperator, loginOperator } from './auth.service'
 
 export const register = async (req: Request, res: Response) => {
   try {
     const { callsign, email, password } = req.body
-    const result = await registerUser(callsign, email, password)
+    const result = await registerOperator(callsign, email, password)
 
     res.status(201).json({
-      user: {
-        id: result.user._id,
-        callsign: result.user.callsign,
-        email: result.user.email
+      operator: {
+        id: result.operator._id,
+        callsign: result.operator.callsign,
+        email: result.operator.email
       },
       token: result.token
     })
@@ -22,13 +22,13 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body
-    const result = await loginUser(email, password)
+    const result = await loginOperator(email, password)
 
     res.json({
-      user: {
-        id: result.user._id,
-        callsign: result.user.callsign,
-        email: result.user.email
+      operator: {
+        id: result.operator._id,
+        callsign: result.operator.callsign,
+        email: result.operator.email
       },
       token: result.token
     })

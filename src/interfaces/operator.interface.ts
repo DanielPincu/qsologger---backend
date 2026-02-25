@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IOperator {
   _id: string
   callsign: string          
   email: string

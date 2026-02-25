@@ -18,6 +18,9 @@
     "noImplicitAny": true,
     "skipLibCheck": true
   },
+  "ts-node": {
+    "files": true
+  },
   "include": ["./src", "tests"],
   "exclude": ["node_modules/**/*"]
 }
