@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import authRoutes from '../modules/auth/auth.routes'
+import qsoRoutes from '../modules/qso/qso.routes'
 
 
 export const routes = Router()
@@ -12,3 +13,6 @@ routes.get('/ok', (req, res) => {
 
 //auth routes
 routes.use('/operator', authRoutes)
+
+//qso routes
+routes.use('/qso', qsoRoutes)

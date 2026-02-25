@@ -1,7 +1,19 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { getOperatorByEmail, createOperator } from '../operator/operator.service'
 import { env } from '../../config/env'
+import { OperatorModel } from '../../models/operator.model'
+
+const getOperatorByEmail = async (email: string) => {
+  return OperatorModel.findOne({ email })
+}
+
+const createOperator = async (data: {
+  callsign: string
+  email: string
+  password: string
+}) => {
+  return OperatorModel.create(data)
+}
 
 export const registerOperator = async (callsign: string, email: string, password: string) => {
   const existing = await getOperatorByEmail(email)

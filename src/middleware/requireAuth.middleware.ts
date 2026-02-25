@@ -2,11 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { env } from '../config/env'
 
-export interface AuthRequest extends Request {
-  operatorId: string
-}
-
-export const requireAuth = (req: AuthRequest, res: Response, next: NextFunction) => {
+export const requireAuth = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization?.replace('Bearer ', '')
 
   if (!token) return res.status(401).json({ message: 'No token provided' })
