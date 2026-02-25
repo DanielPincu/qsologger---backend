@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-const userSchema = new Schema(
+const operatorSchema = new Schema(
   {
     callsign: { type: String, required: true, unique: true, sparse: true }, 
     email: { type: String, required: true, unique: true },
@@ -12,4 +12,4 @@ const userSchema = new Schema(
   { timestamps: true }
 )
 
-export const UserModel = model('User', userSchema)
+export const OperatorModel = model('Operator', operatorSchema)
