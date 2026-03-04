@@ -1,6 +1,6 @@
 import { QSOModel } from '../../models/qso.model'
 import { OperatorModel } from '../../models/operator.model'
-import { locatorToLatLon } from '../../utils/locatorToLatLon.util'
+import { locatorToLatLon } from '../../utils/gridToLatLon.util'
 import { distanceKm } from '../../utils/distance.util'
 
 export async function getConfirmedQsoMap(operatorId: string) {

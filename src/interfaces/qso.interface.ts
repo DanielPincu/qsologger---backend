@@ -14,6 +14,18 @@ export interface IQSO {
   confirmed: boolean
   confirmedAt?: Date
   matchedQsoId?: string
+
+  from?: {
+    lat: number
+    lon: number
+  }
+
+  to?: {
+    lat: number
+    lon: number
+  }
+
+  distanceKm?: number
 }
 
 export type CreateQSO = Omit<IQSO, '_id' | 'operatorId'>
