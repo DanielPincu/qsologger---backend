@@ -60,7 +60,9 @@ export const createQSO = async (
 }
 
 export const getQSOs = async (operatorId: string): Promise<IQSO[]> => {
-  return QSOModel.find({ operatorId }).sort({ qsoDate: -1 })
+  return QSOModel.find({ operatorId })
+    .sort({ qsoDate: -1 })
+    .lean()
 }
 
 export const getQSOById = async (

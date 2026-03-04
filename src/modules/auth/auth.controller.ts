@@ -3,8 +3,11 @@ import { registerOperator, loginOperator } from './auth.service'
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { callsign, email, password } = req.body
-    const result = await registerOperator(callsign, email, password)
+    const { callsign, email, password, locator } = req.body
+    if (!locator) {
+      return res.status(400).json({ message: 'Maidenhead locator is required for registration' })
+    }
+    const result = await registerOperator(callsign, email, password, locator)
 
     res.status(201).json({
       operator: {

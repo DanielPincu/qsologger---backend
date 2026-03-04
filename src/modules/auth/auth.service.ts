@@ -11,11 +11,12 @@ const createOperator = async (data: {
   callsign: string
   email: string
   password: string
+  locator: string
 }) => {
   return OperatorModel.create(data)
 }
 
-export const registerOperator = async (callsign: string, email: string, password: string) => {
+export const registerOperator = async (callsign: string, email: string, password: string, locator: string) => {
   const existing = await getOperatorByEmail(email)
   if (existing) {
     throw new Error('Email already in use')
@@ -26,7 +27,8 @@ export const registerOperator = async (callsign: string, email: string, password
   const operator = await createOperator({
     callsign,
     email,
-    password: hashedPassword
+    password: hashedPassword,
+    locator
   })
 
   const token = jwt.sign({ operatorId: operator._id }, env.JWT_SECRET, { expiresIn: '7d' })

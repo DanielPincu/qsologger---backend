@@ -1,5 +1,6 @@
 import { Response, Request } from 'express'
 import * as QSOService from './qso.service'
+import { getConfirmedQsoMap } from './qso.map.service'
 import { CreateQSO, UpdateQSO } from '../../interfaces/qso.interface'
 import { getErrorMessage } from '../../utils/error.util'
 
@@ -21,8 +22,27 @@ export const create = async (req: AuthRequest, res: Response) => {
 }
 
 export const list = async (req: AuthRequest, res: Response) => {
-  const qsos = await QSOService.getQSOs(req.operatorId)
-  res.json(qsos)
+  try {
+    const qsos = await QSOService.getQSOs(req.operatorId)
+    const mapData = await getConfirmedQsoMap(req.operatorId)
+
+    const enriched = qsos.map(qso => {
+      const map = mapData.find(m => m.remoteCallsign === qso.remoteCallsign)
+
+      if (!map) return qso
+
+      return {
+        ...qso,
+        from: map.from,
+        to: map.to,
+        distanceKm: map.distanceKm
+      }
+    })
+
+    res.json(enriched)
+  } catch (error) {
+    res.status(400).json({ message: getErrorMessage(error) })
+  }
 }
 
 export const getOne = async (req: AuthRequest, res: Response) => {
