@@ -1,6 +1,8 @@
 import { QSOModel } from '../../models/qso.model'
 import { OperatorModel } from '../../models/operator.model'
 import { CreateQSO, UpdateQSO, IQSO } from '../../interfaces/qso.interface'
+import { locatorToLatLon } from '../../utils/locatorToLatLon.util'
+import { distanceKm as distanceKmCalc } from '../../utils/distance.util'
 
 export const createQSO = async (
   operatorId: string,
@@ -44,16 +46,38 @@ export const createQSO = async (
 
   const confirmedAt = new Date()
 
+  // Ensure both operators have locators
+  if (!operator.locator || !candidateOperator.locator) {
+    return created
+  }
+
+  // Calculate coordinates and distance at confirmation time
+  const from = locatorToLatLon(operator.locator)
+  const to = locatorToLatLon(candidateOperator.locator)
+
+  const distanceKm = distanceKmCalc(
+    from.lat,
+    from.lon,
+    to.lat,
+    to.lon
+  )
+
   await QSOModel.findByIdAndUpdate(created._id, {
     confirmed: true,
     confirmedAt,
-    matchedQsoId: candidate._id
+    matchedQsoId: candidate._id,
+    from,
+    to,
+    distanceKm
   })
 
   await QSOModel.findByIdAndUpdate(candidate._id, {
     confirmed: true,
     confirmedAt,
-    matchedQsoId: created._id
+    matchedQsoId: created._id,
+    from: to,
+    to: from,
+    distanceKm
   })
 
   return QSOModel.findById(created._id)
