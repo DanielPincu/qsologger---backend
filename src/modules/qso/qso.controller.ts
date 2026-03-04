@@ -1,21 +1,31 @@
 import { Response, Request } from 'express'
 import * as QSOService from './qso.service'
+import { CreateQSO, UpdateQSO } from '../../interfaces/qso.interface'
+import { getErrorMessage } from '../../utils/error.util'
 
-export const create = async (req: Request, res: Response) => {
-  const qso = await QSOService.createQSO(
-    req.operatorId,
-    req.body
-  )
+type AuthRequest = Request & { operatorId: string }
 
-  res.status(201).json(qso)
+export const create = async (req: AuthRequest, res: Response) => {
+  try {
+    const payload = req.body as CreateQSO
+
+    const qso = await QSOService.createQSO(
+      req.operatorId,
+      payload
+    )
+
+    res.status(201).json(qso)
+  } catch (error) {
+    res.status(400).json({ message: getErrorMessage(error) })
+  }
 }
 
-export const list = async (req: Request, res: Response) => {
+export const list = async (req: AuthRequest, res: Response) => {
   const qsos = await QSOService.getQSOs(req.operatorId)
   res.json(qsos)
 }
 
-export const getOne = async (req: Request, res: Response) => {
+export const getOne = async (req: AuthRequest, res: Response) => {
   const { id } = req.params as { id: string }
 
   const qso = await QSOService.getQSOById(
@@ -30,33 +40,41 @@ export const getOne = async (req: Request, res: Response) => {
   res.json(qso)
 }
 
-export const update = async (req: Request, res: Response) => {
+export const update = async (req: AuthRequest, res: Response) => {
   const { id } = req.params as { id: string }
 
-  const qso = await QSOService.updateQSO(
-    req.operatorId,
-    id,
-    req.body
-  )
+  try {
+    const qso = await QSOService.updateQSO(
+      req.operatorId,
+      id,
+      req.body as UpdateQSO
+    )
 
-  if (!qso) {
-    return res.status(404).json({ message: 'QSO not found' })
+    if (!qso) {
+      return res.status(404).json({ message: 'QSO not found' })
+    }
+
+    res.json(qso)
+  } catch (error) {
+    res.status(400).json({ message: getErrorMessage(error) })
   }
-
-  res.json(qso)
 }
 
-export const remove = async (req: Request, res: Response) => {
+export const remove = async (req: AuthRequest, res: Response) => {
   const { id } = req.params as { id: string }
 
-  const qso = await QSOService.deleteQSO(
-    req.operatorId,
-    id
-  )
+  try {
+    const qso = await QSOService.deleteQSO(
+      req.operatorId,
+      id
+    )
 
-  if (!qso) {
-    return res.status(404).json({ message: 'QSO not found' })
+    if (!qso) {
+      return res.status(404).json({ message: 'QSO not found' })
+    }
+
+    res.status(200).json({ message: 'QSO deleted' })
+  } catch (error) {
+    res.status(400).json({ message: getErrorMessage(error) })
   }
-
-  res.status(200).json({ message: 'QSO deleted' })
 }
