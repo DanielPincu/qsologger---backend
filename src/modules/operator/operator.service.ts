@@ -1,22 +1,24 @@
 import { OperatorModel } from '../../models/operator.model'
 import { QSOModel } from '../../models/qso.model'
 import { hashPassword, comparePassword } from '../../utils/passwordHasher.util'
+import { IOperator } from '../../interfaces/operator.interface'
 
-export const getMe = async (operatorId: string) => {
+type UpdateOperatorPayload = Partial<
+  Pick<IOperator, 'callsign' | 'qth' | 'locator' | 'email' | 'password'>
+> & {
+  currentPassword?: string
+}
+
+export const getMe = async (
+  operatorId: string
+): Promise<Awaited<ReturnType<typeof OperatorModel.findById>>> => {
   return OperatorModel.findById(operatorId).select('-password')
 }
 
 export const updateMe = async (
   operatorId: string,
-  payload: {
-    callsign?: string
-    qth?: string
-    locator?: string
-    email?: string
-    password?: string
-    currentPassword?: string
-  }
-) => {
+  payload: UpdateOperatorPayload
+): Promise<Awaited<ReturnType<typeof OperatorModel.findById>>> => {
   if (payload.password) {
     if (!payload.currentPassword) {
       throw new Error('Current password is required to set a new password')
@@ -42,11 +44,13 @@ export const updateMe = async (
   return OperatorModel.findByIdAndUpdate(
     operatorId,
     payload,
-    { new: true }
+    { returnDocument: 'after' }
   ).select('-password')
 }
 
-export const deleteMe = async (operatorId: string) => {
+export const deleteMe = async (
+  operatorId: string
+): Promise<Awaited<ReturnType<typeof OperatorModel.findByIdAndDelete>>> => {
   // Optional but recommended: delete all QSOs first
   await QSOModel.deleteMany({ operatorId })
 

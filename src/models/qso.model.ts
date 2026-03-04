@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+import { IQSO } from '../interfaces/qso.interface'
 
 const QSOSchema = new Schema(
   {
@@ -22,10 +23,14 @@ const QSOSchema = new Schema(
     qsoDate: { type: Date, required: true },
     operatorId: { type: Schema.Types.ObjectId, ref: 'Operator', required: true },
 
+    confirmed: { type: Boolean, default: false },
+    confirmedAt: { type: Date },
+    matchedQsoId: { type: Schema.Types.ObjectId, ref: 'QSO' },
+
     qth: { type: String },
     locator: { type: String },
   },
   { timestamps: true }
 )
 
-export const QSOModel = model('QSO', QSOSchema)
+export const QSOModel = model<IQSO>('QSO', QSOSchema)

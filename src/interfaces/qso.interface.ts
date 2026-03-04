@@ -10,6 +10,10 @@ export interface IQSO {
   rstReceived: string
   qsoDate: Date
   operatorId: string
+
+  confirmed: boolean
+  confirmedAt?: Date
+  matchedQsoId?: string
   
   qth?: string
   locator?: string

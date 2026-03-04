@@ -1,7 +1,9 @@
 import { Request, Response } from 'express'
+import { getErrorMessage } from '../../utils/error.util'
+type AuthRequest = Request & { operatorId: string }
 import * as OperatorService from './operator.service'
 
-export const getMe = async (req: Request, res: Response) => {
+export const getMe = async (req: AuthRequest, res: Response) => {
   try {
     const operator = await OperatorService.getMe(req.operatorId)
 
@@ -10,12 +12,12 @@ export const getMe = async (req: Request, res: Response) => {
     }
 
     res.json(operator)
-  } catch (error: any) {
-    return res.status(500).json({ message: error.message })
+  } catch (error) {
+    return res.status(500).json({ message: getErrorMessage(error) })
   }
 }
 
-export const updateMe = async (req: Request, res: Response) => {
+export const updateMe = async (req: AuthRequest, res: Response) => {
   try {
     const operator = await OperatorService.updateMe(
       req.operatorId,
@@ -31,12 +33,12 @@ export const updateMe = async (req: Request, res: Response) => {
     }
 
     res.json(operator)
-  } catch (error: any) {
-    return res.status(400).json({ message: error.message })
+  } catch (error) {
+    return res.status(400).json({ message: getErrorMessage(error) })
   }
 }
 
-export const deleteMe = async (req: Request, res: Response) => {
+export const deleteMe = async (req: AuthRequest, res: Response) => {
   try {
     const operator = await OperatorService.deleteMe(req.operatorId)
 
@@ -45,7 +47,7 @@ export const deleteMe = async (req: Request, res: Response) => {
     }
 
     res.status(200).json({ message: 'Operator deleted' })
-  } catch (error: any) {
-    return res.status(500).json({ message: error.message })
+  } catch (error) {
+    return res.status(500).json({ message: getErrorMessage(error) })
   }
 }
