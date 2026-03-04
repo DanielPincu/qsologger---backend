@@ -1,7 +1,7 @@
 import { QSOModel } from '../../models/qso.model'
 import { OperatorModel } from '../../models/operator.model'
 import { CreateQSO, UpdateQSO, IQSO } from '../../interfaces/qso.interface'
-import { locatorToLatLon } from '../../utils/locatorToLatLon.util'
+import { locatorToLatLon } from '../../utils/gridToLatLon.util'
 import { distanceKm as distanceKmCalc } from '../../utils/distance.util'
 
 export const createQSO = async (
