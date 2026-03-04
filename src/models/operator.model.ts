@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose'
+import { IOperator } from '../interfaces/operator.interface'
 
-const operatorSchema = new Schema(
+const operatorSchema = new Schema<IOperator>(
   {
     callsign: { type: String, required: true, unique: true, sparse: true }, 
     email: { type: String, required: true, unique: true },
@@ -12,4 +13,4 @@ const operatorSchema = new Schema(
   { timestamps: true }
 )
 
-export const OperatorModel = model('Operator', operatorSchema)
+export const OperatorModel = model<IOperator>('Operator', operatorSchema)
