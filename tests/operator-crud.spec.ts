@@ -14,7 +14,8 @@ test('operator CRUD flow works', async ({ request }) => {
     data: {
       callsign,
       email,
-      password
+      password,
+      locator: 'JO45'
     }
   })
 

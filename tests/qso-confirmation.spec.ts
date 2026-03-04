@@ -6,13 +6,15 @@ test('QSO auto confirmation works', async ({ request }) => {
   const op1 = {
     callsign: `YO8UFO${unique}`,
     email: `yo8ufo+${unique}@test.com`,
-    password: 'password123'
+    password: 'password123',
+    locator: 'JO45'
   }
 
   const op2 = {
     callsign: `DL3DLL${unique}`,
     email: `dl3dll+${unique}@test.com`,
-    password: 'password123'
+    password: 'password123',
+    locator: 'EM17'
   }
 
   // register operator 1

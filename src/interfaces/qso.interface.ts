@@ -14,9 +14,6 @@ export interface IQSO {
   confirmed: boolean
   confirmedAt?: Date
   matchedQsoId?: string
-  
-  qth?: string
-  locator?: string
 }
 
 export type CreateQSO = Omit<IQSO, '_id' | 'operatorId'>
