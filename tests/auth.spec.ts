@@ -10,7 +10,8 @@ test('register + login works', async ({ request }) => {
     data: {
       callsign,
       email,
-      password: 'password123'
+      password: 'password123',
+      locator: 'JO45'
     }
   })
 
