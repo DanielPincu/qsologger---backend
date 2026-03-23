@@ -16,6 +16,11 @@ export const getDxByBand = async (req: any, res: Response) => {
   res.json(data)
 }
 
+export const getDxForBand = async (req: any, res: Response) => {
+  const data = await DXService.getDxForBand(req.operatorId, req.params.band)
+  res.json(data)
+}
+
 export const getWorkedGrids = async (req: any, res: Response) => {
   const data = await DXService.getWorkedGrids(req.operatorId)
   res.json(data)
