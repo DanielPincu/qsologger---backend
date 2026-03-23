@@ -56,6 +56,31 @@ export const getDxStats = async (operatorId: string) => {
   }
 }
 
+export const getDxForBand = async (operatorId: string, band: string) => {
+  const qso = await QSOModel.findOne({
+    operatorId,
+    confirmed: true,
+    band,
+    distanceKm: { $exists: true }
+  })
+    .sort({ distanceKm: -1 })
+    .lean()
+
+  if (!qso) {
+    return {
+      band,
+      hasRecord: false,
+      message: `No confirmed DX record found for ${band}`
+    }
+  }
+
+  return {
+    band,
+    hasRecord: true,
+    record: qso
+  }
+}
+
 export const getDxByBand = async (operatorId: string) => {
   const qsos = await QSOModel.find({
     operatorId,

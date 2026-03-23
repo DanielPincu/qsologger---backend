@@ -23,8 +23,8 @@
     "build": "rm -rf ./dist && tsc",
     "prestart": "npm run build",
     "start": "node dist/src/index.js",
-    "test:e2e": "playwright test",
-    "test:api": "concurrently \"npm run dev\" \"wait-on -t 30000 http://127.0.0.1:3000/ok && npm run test:e2e\""
+    "test:e2e": "playwright test --reporter=html",
+    "test": "concurrently \"npm run dev\" \"wait-on -t 30000 http://127.0.0.1:3000/ok && npm run test:e2e && npx playwright show-report\""
   },
   "nodemonConfig": {
     "verbose": false,

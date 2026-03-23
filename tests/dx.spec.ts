@@ -63,7 +63,7 @@ test('DX statistics and DXCC calculation works', async ({ request }) => {
   })
 
   // check DX stats
-  const stats = await request.get('/dx/stats', {
+  const stats = await request.get('/dx/summary', {
     headers: { Authorization: `Bearer ${token1}` }
   })
 
