@@ -6,7 +6,7 @@ export const createQSO = Joi.object({
     .valid('160m', '80m', '40m', '20m', '15m', '10m', '6m', '2m', '70cm')
     .required(),
   mode: Joi.string()
-    .valid('SSB', 'CW', 'FT8', 'RTTY', 'AM')
+    .valid('SSB', 'CW', 'RTTY', 'AM', 'FM')
     .required(),
 
   rstSent: Joi.string().trim().optional(),
