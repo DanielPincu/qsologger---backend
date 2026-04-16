@@ -4,7 +4,7 @@ import { hashPassword, comparePassword } from '../../utils/passwordHasher.util'
 import { IOperator } from '../../interfaces/operator.interface'
 
 type UpdateOperatorPayload = Partial<
-  Pick<IOperator, 'callsign' | 'qth' | 'locator' | 'email' | 'password'>
+  Pick<IOperator, 'callsign' | 'locator' | 'email' | 'password'>
 > & {
   currentPassword?: string
 }
