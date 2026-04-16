@@ -4,8 +4,6 @@ export interface IOperator {
   email: string
   password: string                
   createdAt: Date
-  updatedAt: Date
-
-  qth?: string             
-  locator?: string  
+  updatedAt: Date         
+  locator: string  
 }

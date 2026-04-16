@@ -2,7 +2,6 @@ import Joi from 'joi'
 
 export const updateOperator = Joi.object({
   callsign: Joi.string().trim().uppercase().optional(),
-  qth: Joi.string().trim().optional(),
   locator: Joi.string()
     .trim()
     .uppercase()
