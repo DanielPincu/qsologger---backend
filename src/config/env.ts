@@ -20,12 +20,6 @@ export const env = (() => {
       return process.env.MONGO_URI_DEV
     }
 
-    if (NODE_ENV === 'test') {
-      if (!process.env.MONGO_URI_TEST) {
-        throw new Error('MONGO_URI_TEST is required in test')
-      }
-      return process.env.MONGO_URI_TEST
-    }
 
     throw new Error(`Unsupported NODE_ENV for DB config: ${NODE_ENV}`)
   })()
