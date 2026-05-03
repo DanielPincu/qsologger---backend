@@ -25,7 +25,7 @@
     "start": "node dist/index.js",
     "test:e2e": "playwright test --reporter=html",
     "report": "playwright show-report",
-    "test": "concurrently \"cross-env NODE_ENV=test nodemon\" \"wait-on -t 30000 http://127.0.0.1:3000/ok && npm run test:e2e && npx playwright show-report\""
+    "test": "concurrently \"cross-env NODE_ENV=development nodemon\" \"wait-on -t 30000 http://127.0.0.1:3000/ok && npm run test:e2e && npx playwright show-report\""
   },
   "nodemonConfig": {
     "verbose": false,
