@@ -27,7 +27,7 @@ export const swaggerSpec: OpenAPIV3.Document = {
     },
     {
       url: 'https://qsologger-backend-dev.onrender.com',
-      description: 'Development (Render)',
+      description: 'Development',
     },
     {
       url: 'https://qsologger-backend.onrender.com',
